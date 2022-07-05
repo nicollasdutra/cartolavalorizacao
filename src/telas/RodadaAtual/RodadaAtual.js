@@ -3,5 +3,5 @@ import { Text } from 'react-native';
 
 export default function RodadaAtual(){
 
-    return <Text>Teste</Text>
+    return <Text>Teste 2</Text>
 }
