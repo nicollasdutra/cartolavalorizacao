@@ -3,6 +3,7 @@ import { StyleSheet, SafeAreaView, Text, View,FlatList, Image, TouchableOpacity 
 
 import apiMercado from '../../../src/api/mercadoApi';
 
+import { nomeClube } from '../../components/clubes/clubes';
 
 import palmeiras from '../../../src/assets/275.png';
 import flamengo from '../../../src/assets/262.png';
@@ -74,60 +75,10 @@ function posicao(posicao){
 
 }
 
-function clube(clube){
-
-  switch(clube){
-    case 275:
-      return 'Palmeiras'
-    case 262:
-      return 'Flamengo'
-    case 263:
-      return 'Botafogo'
-    case 264:
-      return 'Corinthians'
-    case 266:
-      return 'Fluminense'
-    case 276:
-      return 'Sao Paulo'
-    case 277:
-      return 'Santos'
-    case 280:
-      return 'Bragantino'
-    case 282:
-      return 'Atletico MG'
-    case 285:
-      return 'Internacional'
-    case 286:
-      return 'Juventude'
-    case 290:
-      return 'Goias'
-    case 293:
-      return 'Atletico PR'
-    case 294:
-      return 'Coritiba'
-    case 314:
-      return 'Avai'
-    case 327:
-      return 'America MG'
-    case 354:
-      return 'Ceara'
-    case 356:
-      return 'Fortaleza'
-    case 373:
-      return 'Atletico GO'
-    case 1371:
-      return 'Cuiaba'
-                                                                                                                                      
-  }
-
-}
-
-
 export default function Valorizar()
 {
 
   const [dados, setDados] = useState([]);
-  const [atletas, setAtletas] = useState([]);
   
   const [timeEscolhido, setTimeEscolhido] = useState(0);
 
@@ -166,7 +117,7 @@ async function CarregaClubeFiltro(id){
 const renderItem = ({ item }) => (
 
   item.status_id == 7 ?
-  <Item foto={item.foto} clube={clube(item.clube_id)} provavel={item.status_id} posicao={posicao(item.posicao_id)} nome={item.apelido} minValorizar={item.minimo_para_valorizar}/>
+  <Item foto={item.foto} clube={nomeClube(item.clube_id)} provavel={item.status_id} posicao={posicao(item.posicao_id)} nome={item.apelido} minValorizar={item.minimo_para_valorizar}/>
   : <></>
 );
 
@@ -175,10 +126,11 @@ const renderItem = ({ item }) => (
 
     return <>
     
-    <View style={estilos.filtro}>
+          <View style={estilos.filtro}>
             <TouchableOpacity style={estilos.botaotodos} onPress={() => setTimeEscolhido(1)}><Text style={estilos.textotodos}>Todos</Text></TouchableOpacity>
           </View>
           
+          <View style={estilos.filtroGeral}>
             <View style={estilos.filtro}>
             <TouchableOpacity style={estilos.botaofiltro} onPress={() => setTimeEscolhido(327)}><Image source={americamg} style={estilos.clubefiltro} /></TouchableOpacity>
             <TouchableOpacity style={estilos.botaofiltro} onPress={() => setTimeEscolhido(293)}><Image source={atleticopr} style={estilos.clubefiltro} /></TouchableOpacity>
@@ -207,7 +159,7 @@ const renderItem = ({ item }) => (
             <TouchableOpacity style={estilos.botaofiltro} onPress={() => setTimeEscolhido(277)}><Image source={santos} style={estilos.clubefiltro}/></TouchableOpacity>
             <TouchableOpacity style={estilos.botaofiltro} onPress={() => setTimeEscolhido(276)}><Image source={saopaulo} style={estilos.clubefiltro}/></TouchableOpacity>
             </View>
-          
+          </View>
             <View style={estilos.titulo}>
             <View style={estilos.subtitulo}>
             <Image style={estilos.provavel} source={checkok} />
@@ -299,9 +251,16 @@ const estilos = StyleSheet.create({
   },
   filtro: {
     flexDirection: "row",
+    justifyContent: 'center',
+    alignItems: 'center',
     marginLeft:16,
     marginBottom:15,
     marginRight: 16,
+  },
+  filtroGeral:{
+    width:'100%',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   clubefiltro:{
     marginLeft:22,
