@@ -10,8 +10,8 @@ import LinearGradient from 'react-native-linear-gradient';
 
 import RodadaAtual from './src/telas/RodadaAtual/RodadaAtual';
 import Valorizar from './src/telas/Valorizar/Valorizar';
-
-
+import MaisEscalados from './src/telas/MaisEscalados/MaisEscalados';
+import MaiorMedia from './src/telas/MaiorMedia/MaiorMedia';
 
 const Tab = createBottomTabNavigator();
 
@@ -33,7 +33,13 @@ function App(){
 							case 'Min. Valorizar':
 								iconName = 'dollar-sign';
 								break;
-							
+              case 'Mais Escalados':
+								iconName = 'chevrons-up';
+								break;
+              case 'Maiores Medias':
+                  iconName = 'bar-chart';
+                  break;
+
 							default:
 								iconName = 'circle';
 								break;
@@ -67,6 +73,8 @@ function App(){
 						),
 					})}
 				/> */}
+        <Tab.Screen name="Mais Escalados" component={MaisEscalados} />
+				<Tab.Screen name="Maiores Medias" component={MaiorMedia} />
 				<Tab.Screen name="Min. Valorizar" component={Valorizar} />
 			</Tab.Navigator>
 		</NavigationContainer>

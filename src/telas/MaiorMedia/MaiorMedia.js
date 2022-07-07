@@ -84,7 +84,7 @@ function posicao(posicao){
 
 }
 
-export default function Valorizar()
+export default function MaiorMedia()
 {
 
   const [dados, setDados] = useState([]);
@@ -208,7 +208,7 @@ const renderItem = ({ item }) => (
 
 
           <FlatList
-            data={dados.atletas?.sort((a,b) => a.minimo_para_valorizar-b.minimo_para_valorizar)}
+            data={dados.atletas?.sort((a,b) => b.media_num-a.media_num)}
             renderItem={renderItem}
             keyExtractor={item => item.atleta_id}
           /> 
@@ -265,7 +265,7 @@ const estilos = StyleSheet.create({
     fontWeight: "bold"
   },
   minimo:{
-    fontWeight:"bold"
+    
   },
   titulo:{
     flexDirection: "row",
@@ -276,8 +276,7 @@ const estilos = StyleSheet.create({
     justifyContent: "space-between"
     },
     titulotexto:{
-      fontWeight:"bold",
-    
+      
     },
     provavel:{
       width:16,
@@ -379,9 +378,11 @@ const estilos = StyleSheet.create({
   },
   textoMedia:{
     marginRight:10,
+    fontWeight: "bold",
   },
   valorMedia:{
     marginRight:50,
+    fontWeight: "bold",
   },
   posicoes:{
     flexDirection: "row",
