@@ -12,6 +12,7 @@ import RodadaAtual from './src/telas/RodadaAtual/RodadaAtual';
 import Valorizar from './src/telas/Valorizar/Valorizar';
 import MaisEscalados from './src/telas/MaisEscalados/MaisEscalados';
 import MaiorMedia from './src/telas/MaiorMedia/MaiorMedia';
+import Estatisticas from './src/telas/EstatisticasClubes/Estatisticas';
 
 const Tab = createBottomTabNavigator();
 
@@ -33,12 +34,15 @@ function App(){
 							case 'Min. Valorizar':
 								iconName = 'dollar-sign';
 								break;
-              case 'Mais Escalados':
+              				case 'Mais Escalados':
 								iconName = 'chevrons-up';
 								break;
-              case 'Maiores Medias':
-                  iconName = 'bar-chart';
-                  break;
+              				case 'Maiores Medias':
+                  				iconName = 'bar-chart';
+                  			break;
+							case 'Estatisticas':
+								iconName = 'bar-chart-2';
+								break;
 
 							default:
 								iconName = 'circle';
@@ -56,25 +60,24 @@ function App(){
 				
 			>
 				<Tab.Screen name="Rodada Atual" component={RodadaAtual} />
+				<Tab.Screen name="Mais Escalados" component={MaisEscalados} />
 				{/*
-
-          Este Tab abaixo cria um botao estilizado como se fosse para um post ou criar algo novo (MUITO BOM)
-
-         <Tab.Screen
-					name="Post"
-					component={RodadaAtual}
+					Este Tab abaixo cria um botao estilizado como se fosse para um post ou criar algo novo (MUITO BOM)
+				*/}
+         		<Tab.Screen
+					name="Estatisticas"
+					component={Estatisticas}
 					options={() => ({
 						tabBarIcon: ({tintColor}) => (
 							<View>
 								<LinearGradient style={estilos.iconTabRound} start={{ x: 0, y: 1 }} end={{ x: 0, y: 0 }} colors={['#D500F9', '#4A148C']}>
-									<Icon name="plus" size={26} color='#FFF'/>
+									<Icon name="bar-chart-2" size={26} color='#FFF'/>
 								</LinearGradient>
 							</View>
 						),
 					})}
-				/> */}
-        <Tab.Screen name="Mais Escalados" component={MaisEscalados} />
-				<Tab.Screen name="Maiores Medias" component={MaiorMedia} />
+				/> 
+        		<Tab.Screen name="Maiores Medias" component={MaiorMedia} />
 				<Tab.Screen name="Min. Valorizar" component={Valorizar} />
 			</Tab.Navigator>
 		</NavigationContainer>
@@ -89,8 +92,8 @@ const estilos = StyleSheet.create({
     marginTop: 16,
   },
   iconTabRound: {
-    width: 60,
-    height: 60,
+    width: 40,
+    height: 40,
     borderRadius: 30,
     marginBottom: 20,
     flexDirection: 'row',
