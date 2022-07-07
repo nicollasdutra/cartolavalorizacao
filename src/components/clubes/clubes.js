@@ -34,7 +34,7 @@ export function nomeClube(clube){
       case 266:
         return 'Fluminense'
       case 276:
-        return 'Sao Paulo'
+        return 'São Paulo'
       case 277:
         return 'Santos'
       case 280:
@@ -46,7 +46,7 @@ export function nomeClube(clube){
       case 286:
         return 'Juventude'
       case 290:
-        return 'Goias'
+        return 'Goiás'
       case 293:
         return 'Atletico PR'
       case 294:
@@ -54,15 +54,15 @@ export function nomeClube(clube){
       case 314:
         return 'Avai'
       case 327:
-        return 'America MG'
+        return 'América MG'
       case 354:
-        return 'Ceara'
+        return 'Ceará'
       case 356:
         return 'Fortaleza'
       case 373:
         return 'Atletico GO'
       case 1371:
-        return 'Cuiaba'
+        return 'Cuiabá'
                                                                                                                                         
     }
   
