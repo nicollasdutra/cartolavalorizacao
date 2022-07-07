@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, SafeAreaView, Text, View,FlatList, Image, TouchableOpacity, ScrollView  } from 'react-native';
+import { StyleSheet, SafeAreaView, Text, View,FlatList, Image, TouchableOpacity, ScrollView, Modal  } from 'react-native';
 
 import apiMercado from '../../../src/api/mercadoApi';
 
@@ -28,11 +28,13 @@ import cuiaba from '../../../src/assets/1371.png';
 
 
 import checkok from '../../../src/assets/check.png';
+import Pressable from 'react-native/Libraries/Components/Pressable/Pressable';
+
 
 
 const Item = ({ foto, clube, provavel, posicao, nome, minValorizar, media, jogos }) => (
   
-  <TouchableOpacity style={estilos.cartao}>
+  <View style={estilos.cartao} >
       <View style={estilos.imagem}>
         <Image source={{uri:foto.replace("FORMATO","140x140")}} style={estilos.fotopeq} />
       </View>
@@ -60,7 +62,7 @@ const Item = ({ foto, clube, provavel, posicao, nome, minValorizar, media, jogos
           </View>
         </View>
       </View>
-  </TouchableOpacity>
+  </View>
 );
 
 function posicao(posicao){
@@ -84,8 +86,11 @@ function posicao(posicao){
 
 }
 
+
 export default function MaiorMedia()
 {
+  const [estatisticas,setEstatisticas] = useState({nome: 'teste', J: 10, G: 3, A: 2, DS: 5, FC: 12, FD: 10, FF: 10, FS: 15, FT: 4, I: 2, PI: 30, PP: 0, DE: 2, GS: 2, SG: 5, CA:2, CV:3  })
+  const [isVisible,setIsVisible] = useState(false);
 
   const [dados, setDados] = useState([]);
   
@@ -101,8 +106,6 @@ export default function MaiorMedia()
     const teste = await apiMercado.get(idClubeFiltrado)
     
     setDados(teste.data);
-
-
     
   }
 
@@ -119,9 +122,9 @@ useEffect(() => {
 },[]);
 
 
-async function CarregaClubeFiltro(id){
-  await CarregaAPI(id);
-}
+
+
+
 
 
 const renderItem = ({ item }) => (
@@ -130,13 +133,16 @@ const renderItem = ({ item }) => (
 
     vPosicao > 0  ?
 
-      item.posicao_id == vPosicao ?
-        <Item foto={item.foto} clube={nomeClube(item.clube_id)} provavel={item.status_id} posicao={posicao(item.posicao_id)} nome={item.apelido} minValorizar={item.minimo_para_valorizar} media={item.media_num} jogos={item.jogos_num}/>
-      :
-      <></>
+    item.posicao_id == vPosicao ?
+    <TouchableOpacity style={estilos.touch} onPress={() => {setIsVisible(true), setEstatisticas({nome:item.apelido,G:item.scout.G ==null ? 0 : item.scout.G,J:item.jogos_num == null ? 0 : item.jogos_num,A:item.scout.A == null ? 0 : item.scout.A,DS:item.scout.DS == null ? 0 : item.scout.DS,FC:item.scout.FC == null ? 0 : item.scout.FC,FD:item.scout.FD == null ? 0 : item.scout.FD,FF:item.scout.FF == null ? 0 : item.scout.FF,FS:item.scout.FS == null ? 0 : item.scout.FS,FT:item.scout.FT == null ? 0 : item.scout.FT,I:item.scout.I == null ? 0 : item.scout.I,PI:item.scout.PI == null ? 0 : item.scout.PI,PP:item.scout.PP == null ? 0 : item.scout.PP,DE:item.scout.DE == null ? 0 : item.scout.DE,GS:item.scout.GS == null ? 0 : item.scout.GS,SG:item.scout.SG == null ? 0 : item.scout.SG,CA:item.scout.CA == null ? 0 : item.scout.CA,CV:item.scout.CV == null ? 0 : item.scout.CV})}}>
+      <Item foto={item.foto} clube={nomeClube(item.clube_id)} provavel={item.status_id} posicao={posicao(item.posicao_id)} nome={item.apelido} minValorizar={item.minimo_para_valorizar} media={item.media_num} jogos={item.jogos_num} onPress={() => {setIsVisible(true)}}/>
+    </TouchableOpacity>
     :
-    <Item foto={item.foto} clube={nomeClube(item.clube_id)} provavel={item.status_id} posicao={posicao(item.posicao_id)} nome={item.apelido} minValorizar={item.minimo_para_valorizar} media={item.media_num} jogos={item.jogos_num}/>
- 
+    <></>
+  :
+  <TouchableOpacity style={estilos.touch} onPress={() => {setIsVisible(true), setEstatisticas({nome:item.apelido,G:item.scout.G ==null ? 0 : item.scout.G,J:item.jogos_num == null ? 0 : item.jogos_num,A:item.scout.A == null ? 0 : item.scout.A,DS:item.scout.DS == null ? 0 : item.scout.DS,FC:item.scout.FC == null ? 0 : item.scout.FC,FD:item.scout.FD == null ? 0 : item.scout.FD,FF:item.scout.FF == null ? 0 : item.scout.FF,FS:item.scout.FS == null ? 0 : item.scout.FS,FT:item.scout.FT == null ? 0 : item.scout.FT,I:item.scout.I == null ? 0 : item.scout.I,PI:item.scout.PI == null ? 0 : item.scout.PI,PP:item.scout.PP == null ? 0 : item.scout.PP,DE:item.scout.DE == null ? 0 : item.scout.DE,GS:item.scout.GS == null ? 0 : item.scout.GS,SG:item.scout.SG == null ? 0 : item.scout.SG,CA:item.scout.CA == null ? 0 : item.scout.CA,CV:item.scout.CV == null ? 0 : item.scout.CV})}}>
+      <Item foto={item.foto} clube={nomeClube(item.clube_id)} provavel={item.status_id} posicao={posicao(item.posicao_id)} nome={item.apelido} minValorizar={item.minimo_para_valorizar} media={item.media_num} jogos={item.jogos_num} onPress={() => {setIsVisible(true)}}/>
+  </TouchableOpacity>
   : <></>
 );
 
@@ -144,6 +150,45 @@ const renderItem = ({ item }) => (
 
 
     return <>
+
+        <View style={estilos.centeredView}>
+            <Modal
+                animationType="slide"
+                transparent={true}
+                visible={isVisible}
+            >
+            <View style={estilos.centeredView}>
+                <View style={estilos.modalView}>
+                <Text style={estilos.modalTextBold}>{estatisticas.nome}</Text>
+                    <Text style={estilos.modalText}>J: {estatisticas.J}</Text>
+                    <Text style={estilos.modalText}>G: {estatisticas.G}</Text>
+                    <Text style={estilos.modalText}>A: {estatisticas.A}</Text>
+                    <Text style={estilos.modalText}>DS: {estatisticas.DS}</Text>
+                    <Text style={estilos.modalText}>FC: {estatisticas.FC}</Text>
+                    <Text style={estilos.modalText}>FD: {estatisticas.FD}</Text>
+                    <Text style={estilos.modalText}>FF: {estatisticas.FF}</Text>
+                    <Text style={estilos.modalText}>FS: {estatisticas.FS}</Text>
+                    <Text style={estilos.modalText}>FT: {estatisticas.FT}</Text>
+                    <Text style={estilos.modalText}>I: {estatisticas.I}</Text>
+                    <Text style={estilos.modalText}>PI: {estatisticas.PI}</Text>
+                    <Text style={estilos.modalText}>PP: {estatisticas.PP}</Text>
+                    <Text style={estilos.modalText}>DE: {estatisticas.DE}</Text>
+                    <Text style={estilos.modalText}>GS: {estatisticas.GS}</Text>
+                    <Text style={estilos.modalText}>SG: {estatisticas.SG}</Text>
+                    <Text style={estilos.modalText}>CA: {estatisticas.CA}</Text>
+                    <Text style={estilos.modalText}>CV: {estatisticas.CV}</Text>
+            
+                    <Pressable
+                      style={[estilos.button, estilos.buttonClose]}
+                    onPress={() => setIsVisible(!isVisible)}
+                    >
+                        <Text style={estilos.textStyle}>Fechar</Text>
+                    </Pressable>
+                </View>
+            </View>
+            </Modal>
+        </View>
+
 
         <ScrollView style={estilos.scrollView}>
           <Text style={estilos.titulotextoCima}>Posições</Text>
@@ -224,23 +269,25 @@ const estilos = StyleSheet.create({
       flex: 1,
       marginTop: 16,
     },
-    cartao:{
-      backgroundColor: '#F6F6F6',
-      marginVertical:8,
-      marginHorizontal: 16,
-      borderRadius: 6,
-      flexDirection: "row",
-      elevation: 4, //para colocar sombra - somente android
-  
-      //para IOS a sombra é os itens até o final (shadowRadius)
-      shadowColor: '#000',
-      shadowOffset:{
-          width: 0,
-          height:2, 
+    touch:{
+        backgroundColor: '#F6F6F6',
+        marginVertical:8,
+        marginHorizontal: 16,
+        elevation: 4, //para colocar sombra - somente android
+    
+        //para IOS a sombra é os itens até o final (shadowRadius)
+        shadowColor: '#000',
+        shadowOffset:{
+            width: 0,
+            height:2, 
+        },
+        shadowOpacity: 0.23,
+        shadowRadius:2.62,
       },
-      shadowOpacity: 0.23,
-      shadowRadius:2.62,
-  },
+      cartao:{
+        backgroundColor: '#F6F6F6',
+        flexDirection: "row",
+    },
   imagem:{
     marginLeft: 10,
     borderRadius: 6,
@@ -401,5 +448,50 @@ const estilos = StyleSheet.create({
   jogos:{
     alignItems:"flex-end",
     marginTop:16,
+  },
+  centeredView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: "white",
+    borderRadius: 20,
+    width:"50%",
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5
+  },
+  button: {
+    borderRadius: 10,
+    padding: 6,
+    elevation: 2,
+    marginTop:10,
+    marginBottom:10,
+  },
+  buttonClose: {
+    backgroundColor: "#9C27B0",
+  },
+  textStyle: {
+    color: "white",
+    fontWeight: "bold",
+    textAlign: "center",
+  },
+  modalText: {
+    marginTop: 6,
+    textAlign: "center",
+  },
+  modalTextBold: {
+    marginTop: 6,
+    textAlign: "center",
+    fontWeight: "bold",
+    fontSize: 16,
   }
 })
