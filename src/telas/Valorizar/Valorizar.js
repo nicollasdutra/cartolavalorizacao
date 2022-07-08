@@ -30,7 +30,7 @@ import cuiaba from '../../../src/assets/1371.png';
 import checkok from '../../../src/assets/check.png';
 
 
-const Item = ({ foto, clube, provavel, posicao, nome, minValorizar, media, jogos }) => (
+const Item = ({ foto, clube, provavel, posicao, nome, minValorizar, media, jogos, preco }) => (
   
   <View style={estilos.cartao}>
       <View style={estilos.imagem}>
@@ -47,7 +47,7 @@ const Item = ({ foto, clube, provavel, posicao, nome, minValorizar, media, jogos
         <Text style={estilos.posicao}>{posicao}</Text>
         </View>
         <View>
-          <Text>{clube}</Text>
+          <Text>{clube}    -    $ {preco}</Text>
         </View>
         </View>
         <View>
@@ -86,7 +86,7 @@ function posicao(posicao){
 
 export default function Valorizar()
 {
-  const [estatisticas,setEstatisticas] = useState({nome: 'teste', J: 10, G: 3, A: 2, DS: 5, FC: 12, FD: 10, FF: 10, FS: 15, FT: 4, I: 2, PI: 30, PP: 0, DE: 2, GS: 2, SG: 5, CA:2, CV:3  })
+  const [estatisticas,setEstatisticas] = useState({nome: 'teste', J: 10, G: 3, A: 2, DS: 5, FC: 12, FD: 10, FF: 10, FS: 15, FT: 4, I: 2, PI: 30, PP: 0, DE: 2, GS: 2, SG: 5, CA:2, CV:3, POS:4  })
   const [isVisible,setIsVisible] = useState(false);
 
   const [dados, setDados] = useState([]);
@@ -132,16 +132,33 @@ const renderItem = ({ item }) => (
 
     vPosicao > 0  ?
 
-      item.posicao_id == vPosicao ?
-      <TouchableOpacity style={estilos.touch} onPress={() => {setIsVisible(true), setEstatisticas({nome:item.apelido,G:item.scout.G ==null ? 0 : item.scout.G,J:item.jogos_num == null ? 0 : item.jogos_num,A:item.scout.A == null ? 0 : item.scout.A,DS:item.scout.DS == null ? 0 : item.scout.DS,FC:item.scout.FC == null ? 0 : item.scout.FC,FD:item.scout.FD == null ? 0 : item.scout.FD,FF:item.scout.FF == null ? 0 : item.scout.FF,FS:item.scout.FS == null ? 0 : item.scout.FS,FT:item.scout.FT == null ? 0 : item.scout.FT,I:item.scout.I == null ? 0 : item.scout.I,PI:item.scout.PI == null ? 0 : item.scout.PI,PP:item.scout.PP == null ? 0 : item.scout.PP,DE:item.scout.DE == null ? 0 : item.scout.DE,GS:item.scout.GS == null ? 0 : item.scout.GS,SG:item.scout.SG == null ? 0 : item.scout.SG,CA:item.scout.CA == null ? 0 : item.scout.CA,CV:item.scout.CV == null ? 0 : item.scout.CV})}}>
-        <Item foto={item.foto} clube={nomeClube(item.clube_id)} provavel={item.status_id} posicao={posicao(item.posicao_id)} nome={item.apelido} minValorizar={item.minimo_para_valorizar} media={item.media_num} jogos={item.jogos_num} onPress={() => {setIsVisible(true)}}/>
-      </TouchableOpacity>
+    item.posicao_id == vPosicao ?
+
+      item.posicao_id != 6 ?
+        <TouchableOpacity style={estilos.touch} onPress={() => {setIsVisible(true), setEstatisticas({nome:item.apelido,G:item.scout.G ==null ? 0 : item.scout.G,J:item.jogos_num == null ? 0 : item.jogos_num,A:item.scout.A == null ? 0 : item.scout.A,DS:item.scout.DS == null ? 0 : item.scout.DS,FC:item.scout.FC == null ? 0 : item.scout.FC,FD:item.scout.FD == null ? 0 : item.scout.FD,FF:item.scout.FF == null ? 0 : item.scout.FF,FS:item.scout.FS == null ? 0 : item.scout.FS,FT:item.scout.FT == null ? 0 : item.scout.FT,I:item.scout.I == null ? 0 : item.scout.I,PI:item.scout.PI == null ? 0 : item.scout.PI,PP:item.scout.PP == null ? 0 : item.scout.PP,DE:item.scout.DE == null ? 0 : item.scout.DE,GS:item.scout.GS == null ? 0 : item.scout.GS,SG:item.scout.SG == null ? 0 : item.scout.SG,CA:item.scout.CA == null ? 0 : item.scout.CA,CV:item.scout.CV == null ? 0 : item.scout.CV, POS: item.posicao_id})}}>
+          <Item foto={item.foto} clube={nomeClube(item.clube_id)} provavel={item.status_id} posicao={posicao(item.posicao_id)} nome={item.apelido} minValorizar={item.minimo_para_valorizar} media={item.media_num} jogos={item.jogos_num} preco={item.preco_num} onPress={() => {setIsVisible(true)}} />
+        </TouchableOpacity>
+
       :
-      <></>
+
+        <View style={estilos.touch} >
+          <Item foto={item.foto} clube={nomeClube(item.clube_id)} provavel={item.status_id} posicao={posicao(item.posicao_id)} nome={item.apelido} minValorizar={item.minimo_para_valorizar} media={item.media_num} jogos={item.jogos_num} preco={item.preco_num} onPress={() => {setIsVisible(true)}} />
+        </View>
+
     :
-    <TouchableOpacity style={estilos.touch} onPress={() => {setIsVisible(true), setEstatisticas({nome:item.apelido,G:item.scout.G ==null ? 0 : item.scout.G,J:item.jogos_num == null ? 0 : item.jogos_num,A:item.scout.A == null ? 0 : item.scout.A,DS:item.scout.DS == null ? 0 : item.scout.DS,FC:item.scout.FC == null ? 0 : item.scout.FC,FD:item.scout.FD == null ? 0 : item.scout.FD,FF:item.scout.FF == null ? 0 : item.scout.FF,FS:item.scout.FS == null ? 0 : item.scout.FS,FT:item.scout.FT == null ? 0 : item.scout.FT,I:item.scout.I == null ? 0 : item.scout.I,PI:item.scout.PI == null ? 0 : item.scout.PI,PP:item.scout.PP == null ? 0 : item.scout.PP,DE:item.scout.DE == null ? 0 : item.scout.DE,GS:item.scout.GS == null ? 0 : item.scout.GS,SG:item.scout.SG == null ? 0 : item.scout.SG,CA:item.scout.CA == null ? 0 : item.scout.CA,CV:item.scout.CV == null ? 0 : item.scout.CV})}}>
-        <Item foto={item.foto} clube={nomeClube(item.clube_id)} provavel={item.status_id} posicao={posicao(item.posicao_id)} nome={item.apelido} minValorizar={item.minimo_para_valorizar} media={item.media_num} jogos={item.jogos_num} onPress={() => {setIsVisible(true)}}/>
-    </TouchableOpacity>
+    <></>
+  :
+    item.posicao_id != 6 ?
+      <TouchableOpacity style={estilos.touch} onPress={() => {setIsVisible(true), setEstatisticas({nome:item.apelido,G:item.scout.G ==null ? 0 : item.scout.G,J:item.jogos_num == null ? 0 : item.jogos_num,A:item.scout.A == null ? 0 : item.scout.A,DS:item.scout.DS == null ? 0 : item.scout.DS,FC:item.scout.FC == null ? 0 : item.scout.FC,FD:item.scout.FD == null ? 0 : item.scout.FD,FF:item.scout.FF == null ? 0 : item.scout.FF,FS:item.scout.FS == null ? 0 : item.scout.FS,FT:item.scout.FT == null ? 0 : item.scout.FT,I:item.scout.I == null ? 0 : item.scout.I,PI:item.scout.PI == null ? 0 : item.scout.PI,PP:item.scout.PP == null ? 0 : item.scout.PP,DE:item.scout.DE == null ? 0 : item.scout.DE,GS:item.scout.GS == null ? 0 : item.scout.GS,SG:item.scout.SG == null ? 0 : item.scout.SG,CA:item.scout.CA == null ? 0 : item.scout.CA,CV:item.scout.CV == null ? 0 : item.scout.CV, POS: item.posicao_id})}}>
+        <Item foto={item.foto} clube={nomeClube(item.clube_id)} provavel={item.status_id} posicao={posicao(item.posicao_id)} nome={item.apelido} minValorizar={item.minimo_para_valorizar} media={item.media_num} jogos={item.jogos_num} preco={item.preco_num} onPress={() => {setIsVisible(true)}} />
+      </TouchableOpacity>
+
+    :
+
+      <View style={estilos.touch} >
+        <Item foto={item.foto} clube={nomeClube(item.clube_id)} provavel={item.status_id} posicao={posicao(item.posicao_id)} nome={item.apelido} minValorizar={item.minimo_para_valorizar} media={item.media_num} jogos={item.jogos_num} preco={item.preco_num} onPress={() => {setIsVisible(true)}} />
+      </View>
+
   : <></>
 );
 
@@ -158,24 +175,23 @@ const renderItem = ({ item }) => (
             >
             <View style={estilos.centeredView}>
                 <View style={estilos.modalView}>
-                    <Text style={estilos.modalTextBold}>{estatisticas.nome}</Text>
-                    <Text style={estilos.modalText}>J: {estatisticas.J}</Text>
-                    <Text style={estilos.modalText}>G: {estatisticas.G}</Text>
-                    <Text style={estilos.modalText}>A: {estatisticas.A}</Text>
-                    <Text style={estilos.modalText}>DS: {estatisticas.DS}</Text>
-                    <Text style={estilos.modalText}>FC: {estatisticas.FC}</Text>
-                    <Text style={estilos.modalText}>FD: {estatisticas.FD}</Text>
-                    <Text style={estilos.modalText}>FF: {estatisticas.FF}</Text>
-                    <Text style={estilos.modalText}>FS: {estatisticas.FS}</Text>
-                    <Text style={estilos.modalText}>FT: {estatisticas.FT}</Text>
-                    <Text style={estilos.modalText}>I: {estatisticas.I}</Text>
-                    <Text style={estilos.modalText}>PI: {estatisticas.PI}</Text>
-                    <Text style={estilos.modalText}>PP: {estatisticas.PP}</Text>
-                    <Text style={estilos.modalText}>DE: {estatisticas.DE}</Text>
-                    <Text style={estilos.modalText}>GS: {estatisticas.GS}</Text>
-                    <Text style={estilos.modalText}>SG: {estatisticas.SG}</Text>
-                    <Text style={estilos.modalText}>CA: {estatisticas.CA}</Text>
-                    <Text style={estilos.modalText}>CV: {estatisticas.CV}</Text>
+                <Text style={estilos.modalText}>Jogos: {estatisticas.J}</Text>
+                    <Text style={estilos.modalText}>Gols: {estatisticas.G}</Text>
+                    <Text style={estilos.modalText}>Assistencias: {estatisticas.A}</Text>
+                    <Text style={estilos.modalText}>Finalizações Defendidas: {estatisticas.FD}</Text>
+                    <Text style={estilos.modalText}>Finalizações para fora: {estatisticas.FF}</Text>
+                    <Text style={estilos.modalText}>Finalizações na Trave: {estatisticas.FT}</Text>
+                    <Text style={estilos.modalText}>Impedimentos: {estatisticas.I}</Text>
+                    <Text style={estilos.modalText}>Passes Incompletos: {estatisticas.PI}</Text>
+                    <Text style={estilos.modalText}>Penaltis Perdidos: {estatisticas.PP}</Text>
+                    <Text style={estilos.modalText}>Desarmes: {estatisticas.DS}</Text>
+                    <Text style={estilos.modalText}>Faltas Cometidas: {estatisticas.FC}</Text>
+                    <Text style={estilos.modalText}>Faltas Sofridas: {estatisticas.FS}</Text>
+                    {estatisticas.POS == 1 ? <Text style={estilos.modalText}>Defesas: {estatisticas.DE}</Text> : <></>} 
+                    {estatisticas.POS == 1 ? <Text style={estilos.modalText}>Gols Sofridos: {estatisticas.GS}</Text> : <></>}
+                    <Text style={estilos.modalText}>Jogos sem levar Gol: {estatisticas.SG}</Text>
+                    <Text style={estilos.modalText}>Cartões Amarelos: {estatisticas.CA}</Text>
+                    <Text style={estilos.modalText}>Cartões Vermelhos: {estatisticas.CV}</Text>
             
                     <Pressable
                       style={[estilos.button, estilos.buttonClose]}
@@ -188,7 +204,7 @@ const renderItem = ({ item }) => (
             </Modal>
         </View>
 
-        <ScrollView style={estilos.scrollView}>
+        <View>
           <Text style={estilos.titulotextoCima}>Posições</Text>
           <View style={estilos.posicoes}>
             <TouchableOpacity style={estilos.botaoPosicao} onPress={() => setvPosicao(0)}><Text style={estilos.textoPosicao}>TODOS</Text></TouchableOpacity>
@@ -235,7 +251,7 @@ const renderItem = ({ item }) => (
             <TouchableOpacity style={estilos.botaofiltro} onPress={() => setTimeEscolhido(276)}><Image source={saopaulo} style={estilos.clubefiltro}/></TouchableOpacity>
             </View>
           </View>
-          </ScrollView>
+          </View>
 
 
           <View style={estilos.titulo}>
@@ -263,11 +279,12 @@ const renderItem = ({ item }) => (
 
 
 const estilos = StyleSheet.create({
-    tela: {
-      flex: 1,
-      marginTop: 16,
-    },
-    touch:{
+  tela: {
+    flex: 1,
+    marginTop: 16,
+    backgroundColor: "#F6F6F6",
+  },
+  touch:{
       backgroundColor: '#F6F6F6',
       marginVertical:8,
       marginHorizontal: 16,
@@ -286,209 +303,211 @@ const estilos = StyleSheet.create({
       backgroundColor: '#F6F6F6',
       flexDirection: "row",
   },
-  imagem:{
-    marginLeft: 10,
-    borderRadius: 6,
-    alignContent: "center",
-    justifyContent: "center",
+imagem:{
+  marginLeft: 10,
+  borderRadius: 6,
+  alignContent: "center",
+  justifyContent: "center",
+  
+},
+informacoes:{
+  flex:1,
+  flexDirection:"row",
+  justifyContent: "space-between",
+  marginLeft:8,
+  marginVertical: 6,
+  marginRight:6,
+  backgroundColor: "#F6F6F6",
+},
+nome:{
+  flexDirection:"row",
+  justifyContent: "space-between",
+},
+posicao:{
+  marginRight:5,
+  fontWeight: "bold"
+},
+minimo:{
+  
+},
+titulo:{
+  flexDirection: "row",
+  marginTop:10,
+  marginLeft:10,
+  marginBottom:10,
+  marginRight:10,
+  justifyContent: "space-between"
+  },
+  titulotexto:{
     
   },
-  informacoes:{
-    flex:1,
-    flexDirection:"row",
-    justifyContent: "space-between",
-    marginLeft:8,
-    marginVertical: 16,
-    marginRight:16,
-  },
-  nome:{
-    flexDirection:"row",
-    justifyContent: "space-between"
-  },
-  posicao:{
-    marginRight:5,
-    fontWeight: "bold"
-  },
-  minimo:{
-    fontWeight:"bold"
-  },
-  titulo:{
-    flexDirection: "row",
-    marginTop:10,
-    marginLeft:10,
-    marginBottom:10,
-    marginRight:10,
-    justifyContent: "space-between"
-    },
-    titulotexto:{
-      fontWeight:"bold",
-    
-    },
-    provavel:{
-      width:16,
-      height:16,
-      marginLeft: 10
-  },
-  subtitulo:{
-    flexDirection: "row",
-  },
-  filtro: {
-    flexDirection: "row",
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginLeft:16,
-    marginBottom:15,
-    marginRight: 16,
-  },
-  filtroGeral:{
-    width:'100%',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  clubefiltro:{
-    marginLeft:22,
-    marginRight:22,
-  },
-  botaofiltro:{
-    //elevation: 4, //para colocar sombra - somente android
-  
-    //para IOS a sombra é os itens até o final (shadowRadius)
-    shadowColor: '#000',
-    shadowOffset:{
-        width: 0,
-        height:2, 
-    },
-    shadowOpacity: 0.23,
-    shadowRadius:2.62,
-  },
-  fotopeq: {
-    width:48,
-    height:48,
-  },
-  botaotodos: {
-    backgroundColor: '#F6F6F6',
-    marginVertical:8,
-    marginHorizontal: 16,
-    borderRadius: 6,
-    flexDirection: "row",
-    elevation: 4, //para colocar sombra - somente android
-  
-          //para IOS a sombra é os itens até o final (shadowRadius)
-    shadowColor: '#000',
-    shadowOffset:{
-      width: 0,
-      height:2, 
-    },
-    shadowOpacity: 0.23,
-    shadowRadius:2.62,
-    alignSelf: 'center'
-  },
-  textotodos: {
-    marginRight:'5%',
-    marginLeft:'5%',
-    marginBottom:5,
-    marginTop: 5,
-    width: '90%',
-    textAlign:"center",
-    alignSelf: 'center'
-  },
-  botaoPosicao: {
-    backgroundColor: '#F6F6F6',
-    marginVertical:4,
-    marginHorizontal: 11,
-    borderRadius: 6,
-    flexDirection: "row",
-    elevation: 4, //para colocar sombra - somente android
-  
-          //para IOS a sombra é os itens até o final (shadowRadius)
-    shadowColor: '#000',
-    shadowOffset:{
-      width: 0,
-      height:2, 
-    },
-    shadowOpacity: 0.23,
-    shadowRadius:2.62,
-    alignSelf: 'center',
-    
-  },
-  textoPosicao: {
-    marginLeft:4,
-    marginRight:4,
-    marginTop:4,
-    marginBottom:4,
+  provavel:{
+    width:16,
+    height:16,
+    marginLeft: 10
+},
+subtitulo:{
+  flexDirection: "row",
+},
+filtro: {
+  flexDirection: "row",
+  justifyContent: 'center',
+  alignItems: 'center',
+  marginLeft:16,
+  marginBottom:8,
+  marginRight: 16,
+},
+filtroGeral:{
+  width:'100%',
+  justifyContent: 'center',
+  alignItems: 'center',
+},
+clubefiltro:{
+  marginLeft:22,
+  marginRight:22,
+},
+botaofiltro:{
+  //elevation: 4, //para colocar sombra - somente android
 
-  },
-  linhaespacada: {
-    flexDirection: "row",
-    justifyContent: "space-between"
-  },
-  textoMedia:{
-    marginRight:10,
-  },
-  valorMedia:{
-    marginRight:50,
-  },
-  posicoes:{
-    flexDirection: "row",
-    alignItems: "center",
-  },
-  titulotextoCima:{
-    fontWeight:"bold",
-    alignItems:"center",
-    textAlign:"center",
-    marginBottom:4,
-    marginTop:4,
-  },
-  scrollView: {
-    height: 400,
-  },
-  jogos:{
-    alignItems:"flex-end",
-    marginTop:16,
-  },
-  centeredView: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  modalView: {
-    margin: 20,
-    backgroundColor: "white",
-    borderRadius: 20,
-    width:"50%",
-    alignItems: "center",
-    shadowColor: "#000",
-    shadowOffset: {
+  //para IOS a sombra é os itens até o final (shadowRadius)
+  shadowColor: '#000',
+  shadowOffset:{
       width: 0,
-      height: 2
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 5
+      height:2, 
   },
-  button: {
-    borderRadius: 10,
-    padding: 6,
-    elevation: 2,
-    marginTop:10,
-    marginBottom:10,
+  shadowOpacity: 0.23,
+  shadowRadius:2.62,
+},
+fotopeq: {
+  width:48,
+  height:48,
+},
+botaotodos: {
+  backgroundColor: '#F6F6F6',
+  marginVertical:8,
+  marginHorizontal: 16,
+  borderRadius: 6,
+  flexDirection: "row",
+  elevation: 4, //para colocar sombra - somente android
+
+        //para IOS a sombra é os itens até o final (shadowRadius)
+  shadowColor: '#000',
+  shadowOffset:{
+    width: 0,
+    height:2, 
   },
-  buttonClose: {
-    backgroundColor: "#9C27B0",
+  shadowOpacity: 0.23,
+  shadowRadius:2.62,
+  alignSelf: 'center'
+},
+textotodos: {
+  marginRight:'5%',
+  marginLeft:'5%',
+  marginBottom:5,
+  marginTop: 5,
+  width: '90%',
+  textAlign:"center",
+  alignSelf: 'center'
+},
+botaoPosicao: {
+  backgroundColor: '#F6F6F6',
+  marginVertical:4,
+  marginHorizontal: 11,
+  borderRadius: 6,
+  flexDirection: "row",
+  elevation: 4, //para colocar sombra - somente android
+
+        //para IOS a sombra é os itens até o final (shadowRadius)
+  shadowColor: '#000',
+  shadowOffset:{
+    width: 0,
+    height:2, 
   },
-  textStyle: {
-    color: "white",
-    fontWeight: "bold",
-    textAlign: "center",
+  shadowOpacity: 0.23,
+  shadowRadius:2.62,
+  alignSelf: 'center',
+  
+},
+textoPosicao: {
+  marginLeft:4,
+  marginRight:4,
+  marginTop:4,
+  marginBottom:4,
+
+},
+linhaespacada: {
+  flexDirection: "row",
+  justifyContent: "space-between"
+},
+textoMedia:{
+  marginRight:10,
+  fontWeight: "bold",
+},
+valorMedia:{
+  marginRight:50,
+  fontWeight: "bold",
+},
+posicoes:{
+  flexDirection: "row",
+  alignItems: "center",
+},
+titulotextoCima:{
+  fontWeight:"bold",
+  alignItems:"center",
+  textAlign:"center",
+  marginBottom:4,
+  marginTop:4,
+},
+scrollView: {
+  height: 400,
+},
+jogos:{
+  alignItems:"flex-end",
+  marginTop:16,
+},
+centeredView: {
+  flex: 1,
+  justifyContent: "center",
+  alignItems: "center",
+},
+modalView: {
+  margin: 20,
+  backgroundColor: "white",
+  borderRadius: 20,
+  width:"50%",
+  alignItems: "center",
+  shadowColor: "#000",
+  shadowOffset: {
+    width: 0,
+    height: 2
   },
-  modalText: {
-    marginTop: 6,
-    textAlign: "center",
-  },
-  modalTextBold: {
-    marginTop: 6,
-    textAlign: "center",
-    fontWeight: "bold",
-    fontSize: 16,
-  }
+  shadowOpacity: 0.25,
+  shadowRadius: 4,
+  elevation: 5
+},
+button: {
+  borderRadius: 10,
+  padding: 6,
+  elevation: 2,
+  marginTop:10,
+  marginBottom:10,
+},
+buttonClose: {
+  backgroundColor: "#9C27B0",
+},
+textStyle: {
+  color: "white",
+  fontWeight: "bold",
+  textAlign: "center",
+},
+modalText: {
+  marginTop: 6,
+  textAlign: "center",
+},
+modalTextBold: {
+  marginTop: 6,
+  textAlign: "center",
+  fontWeight: "bold",
+  fontSize: 16,
+}
 })

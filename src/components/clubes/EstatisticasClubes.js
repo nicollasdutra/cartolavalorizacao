@@ -16,7 +16,7 @@ export default function EstatisticasClubes(clube){
         const dadosPartida = await apiRodada.get(numero.toString())
         
         setPartidas(dadosPartida.data);
-        console.log(JSON.stringify(dadosPartida.data.partidas[0]))
+        //console.log(JSON.stringify(dadosPartida.data.partidas[0]))
         
         
         setGolsSofridos(dadosPartida.data.partidas[0].placar_oficial_mandante);

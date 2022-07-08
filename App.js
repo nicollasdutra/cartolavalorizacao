@@ -3,6 +3,7 @@ import { StyleSheet, SafeAreaView, Text, View,FlatList, Image, TouchableOpacity 
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
+import logo from './src/assets/logo.png';
 
 import Icon from 'react-native-vector-icons/Feather';
 import LinearGradient from 'react-native-linear-gradient';
@@ -20,8 +21,10 @@ function App(){
 
 
   return <>
+  		  <View style={estilos.linha}><Image source={logo} style={estilos.logo} /><Text style={estilos.textologo}>Nikao do cartola</Text></View>
+          
           <SafeAreaView style={estilos.tela}>
-          <NavigationContainer>
+		  <NavigationContainer>
 			<Tab.Navigator
 				screenOptions={({ route }) => ({
 					tabBarIcon: ({ color, size }) => {
@@ -90,6 +93,7 @@ const estilos = StyleSheet.create({
   tela: {
     flex: 1,
     marginTop: 16,
+	backgroundColor: "#F6F6F6",
   },
   iconTabRound: {
     width: 40,
@@ -104,7 +108,20 @@ const estilos = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.2,
     shadowRadius: 5,
-}
+},
+logo: {
+    width: 32,
+    height: 32,
+  },
+  linha: {
+	flexDirection: "row",
+	marginBottom:-10,
+	textAlignVertical: "center",
+	marginLeft:6,
+  },
+  textologo:{
+	textAlignVertical: "center",
+  }
 })
 
 export default App;
