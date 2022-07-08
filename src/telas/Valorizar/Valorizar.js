@@ -204,7 +204,7 @@ const renderItem = ({ item }) => (
             </Modal>
         </View>
 
-        <View>
+        <View style={estilos.painelfiltro}>
           <Text style={estilos.titulotextoCima}>Posições</Text>
           <View style={estilos.posicoes}>
             <TouchableOpacity style={estilos.botaoPosicao} onPress={() => setvPosicao(0)}><Text style={estilos.textoPosicao}>TODOS</Text></TouchableOpacity>
@@ -328,7 +328,8 @@ posicao:{
   fontWeight: "bold"
 },
 minimo:{
-  
+  fontWeight: "bold",
+
 },
 titulo:{
   flexDirection: "row",
@@ -339,7 +340,8 @@ titulo:{
   justifyContent: "space-between"
   },
   titulotexto:{
-    
+    fontWeight: "bold",
+
   },
   provavel:{
     width:16,
@@ -441,11 +443,9 @@ linhaespacada: {
 },
 textoMedia:{
   marginRight:10,
-  fontWeight: "bold",
 },
 valorMedia:{
   marginRight:50,
-  fontWeight: "bold",
 },
 posicoes:{
   flexDirection: "row",
@@ -509,5 +509,8 @@ modalTextBold: {
   textAlign: "center",
   fontWeight: "bold",
   fontSize: 16,
-}
+},
+painelfiltro:{
+  
+},
 })
