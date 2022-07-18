@@ -76,24 +76,27 @@ export default function RodadaAtual(){
 
     const [partidas, setPartidas] = useState([]);
     const [numRodada,setNumRodada] = useState('');
+    let numeroRodada = ''
     const [numRodadaAtual,setNumRodadaAtual] = useState('');
 
     async function CarregaRodada(){
 
+        
         const dadosStatus = await apiStatus.get()
         
         setNumRodadaAtual(dadosStatus.data.rodada_atual);
+        numeroRodada = dadosStatus.data.rodada_atual
 
-        numRodada === '' ? setNumRodada(numRodadaAtual) : numRodada
+        numeroRodada === '1' ? numRodada === '1' ? numRodada : setNumRodada(numeroRodada) : setNumRodada(numeroRodada)
     }
 
     async function CarregaAPI(numero){
-
         
         const dadosPartida = await apiRodada.get(numero.toString())
         
         setPartidas(dadosPartida.data);
-        
+        numeroRodada = numero.toString()
+
     }
 
     async function CarregaDadosIniciais(){
@@ -110,18 +113,24 @@ export default function RodadaAtual(){
 
 
     useEffect(() => {
+        
+      //setNumRodada(1)
+      async function fetchMyAPI() {
 
-        CarregaDadosIniciais();
-        CarregaRodada();
-      
-      },[]);
+        await CarregaRodada();
+      }
+  
+      fetchMyAPI()
+      CarregaDadosIniciais();
+      //setNumRodada(1)
+
+    },[]);
   
       
     useEffect(() => {
 
-        
       CarregaAPI(numRodada);
-    
+      
     },[numRodada]);
 
    
