@@ -29,6 +29,8 @@ import cuiaba from '../../../src/assets/1371.png';
 
 import checkok from '../../../src/assets/check.png';
 
+import { useContext } from "react";
+import { GlobalContext } from "../../contexts/GlobalContext";
 
 const Item = ({ foto, clube, provavel, posicao, nome, minValorizar, media, jogos, preco }) => (
   
@@ -86,6 +88,8 @@ function posicao(posicao){
 
 export default function Valorizar()
 {
+  const { dadosOriginal } = useContext(GlobalContext)
+
   const [estatisticas,setEstatisticas] = useState({nome: 'teste', J: 10, G: 3, A: 2, DS: 5, FC: 12, FD: 10, FF: 10, FS: 15, FT: 4, I: 2, PI: 30, PP: 0, DE: 2, GS: 2, SG: 5, CA:2, CV:3, POS:4  })
   const [isVisible,setIsVisible] = useState(false);
 
@@ -95,35 +99,36 @@ export default function Valorizar()
 
   const [vPosicao, setvPosicao] = useState(0);
 
-  async function CarregaAPI(){
-
+  async function CarregaAPI(numero){
     
-    const idClubeFiltrado = timeEscolhido > 1 ? timeEscolhido.toString() : ''
-
-    const teste = await apiMercado.get(idClubeFiltrado)
+    let teste = [];
     
-    setDados(teste.data);
+    
 
-
+    if(numero > 1)
+    {
+      teste = dadosOriginal.atletas.filter((item) => item.clube_id === numero) 
+    }else
+    {
+      teste = dadosOriginal.atletas
+    }
+    
+    setDados(teste);
     
   }
 
   useEffect(() => {
 
-  CarregaAPI();
+  CarregaAPI(timeEscolhido);
 
 },[timeEscolhido]);
 
-useEffect(() => {
+ useEffect(() => {
 
-  CarregaAPI();
+  CarregaAPI(0);
 
 },[]);
 
-
-async function CarregaClubeFiltro(id){
-  await CarregaAPI(id);
-}
 
 
 const renderItem = ({ item }) => (
@@ -267,7 +272,7 @@ const renderItem = ({ item }) => (
 
 
           <FlatList
-            data={dados.atletas?.sort((a,b) => a.minimo_para_valorizar-b.minimo_para_valorizar)}
+            data={dados?.sort((a,b) => a.minimo_para_valorizar-b.minimo_para_valorizar)}
             renderItem={renderItem}
             keyExtractor={item => item.atleta_id}
           /> 

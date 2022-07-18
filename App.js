@@ -8,22 +8,24 @@ import logo from './src/assets/logo.png';
 import Icon from 'react-native-vector-icons/Feather';
 import LinearGradient from 'react-native-linear-gradient';
 
-
+import CartolaRotas from './src/rotas/CartolaRotas';
 import RodadaAtual from './src/telas/RodadaAtual/RodadaAtual';
 import Valorizar from './src/telas/Valorizar/Valorizar';
 import MaisEscalados from './src/telas/MaisEscalados/MaisEscalados';
 import MaiorMedia from './src/telas/MaiorMedia/MaiorMedia';
 import Estatisticas from './src/telas/EstatisticasClubes/Estatisticas';
 
+import { InfoProvider } from './src/contexts/GlobalContext';
+
 const Tab = createBottomTabNavigator();
 
 function App(){
-
 
   return <>
   		  <View style={estilos.linha}><Image source={logo} style={estilos.logo} /><Text style={estilos.textologo}>Nikao do cartola</Text></View>
           
           <SafeAreaView style={estilos.tela}>
+		  <InfoProvider>
 		  <NavigationContainer>
 			<Tab.Navigator
 				screenOptions={({ route }) => ({
@@ -62,7 +64,7 @@ function App(){
 				})}
 				
 			>
-				<Tab.Screen name="Rodada Atual" component={RodadaAtual} />
+				<Tab.Screen name="Rodada Atual" component={CartolaRotas} />
 				<Tab.Screen name="Mais Escalados" component={MaisEscalados} />
 				{/*
 					Este Tab abaixo cria um botao estilizado como se fosse para um post ou criar algo novo (MUITO BOM)
@@ -84,7 +86,7 @@ function App(){
 				<Tab.Screen name="Min. Valorizar" component={Valorizar} />
 			</Tab.Navigator>
 		</NavigationContainer>
-          
+		</InfoProvider>
           </SafeAreaView>
         </>
 }

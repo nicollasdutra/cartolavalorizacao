@@ -3,68 +3,76 @@ import { Image, StyleSheet, View, FlatList, Text, TouchableOpacity  } from 'reac
 
 import apiRodada from '../../api/rodadaAtual';
 import apiStatus from '../../api/status';
+import apiMercado from '../../api/mercadoApi';
+import apiScouts from '../../api/scouts';
 
 import { nomeClube, imagemClube } from '../../components/clubes/clubes';
 
 import Icon from 'react-native-vector-icons/Feather';
 import Icon2 from 'react-native-vector-icons/FontAwesome';
+import { useNavigation } from '@react-navigation/native';
 
-
-const Item = ({ mandante, visitante, local, horario, placarmandante, placarvisitante, mandantepos, visitantepos, apm1, apm2, apm3, apm4, apm5, apv1, apv2, apv3, apv4, apv5 }) => (
-  
-    <View style={estilos.cartao}>
-        <View style={estilos.partida}>
-
-            <View style={estilos.local}>
-                <Text>{horario.substring(8,10)}/{horario.substring(5,7)}/{horario.substring(0,4)} {horario.substring(11,16)}</Text>
-            </View>
-            <View style={estilos.clubes}>
-                <View style={estilos.mandante}>
-                    <Text style={estilos.posicao}>{mandantepos}º</Text>
-                    <View style={estilos.coluna}>
-                        <View style={estilos.linha}>
-                            <Image source={imagemClube(mandante)} style={estilos.clubefiltro}/>
-                            <View style={estilos.linhaultimas}>
-                                {placarmandante != null ? '' : apm1=="v" ? <Icon2 name="circle" size={8} color="green" style={estilos.ultimas} /> : apm1=="d" ? <Icon2 name="circle" size={8} color="red" style={estilos.ultimas} /> : <Icon2 name="circle" size={8} color="gray" style={estilos.ultimas} /> }
-                                {placarmandante != null ? '' : apm2=="v" ? <Icon2 name="circle" size={8} color="green" style={estilos.ultimas} /> : apm2=="d" ? <Icon2 name="circle" size={8} color="red" style={estilos.ultimas} /> : <Icon2 name="circle" size={8} color="gray" style={estilos.ultimas} /> }
-                                {placarmandante != null ? '' : apm3=="v" ? <Icon2 name="circle" size={8} color="green" style={estilos.ultimas} /> : apm3=="d" ? <Icon2 name="circle" size={8} color="red" style={estilos.ultimas} /> : <Icon2 name="circle" size={8} color="gray" style={estilos.ultimas} /> }
-                                {placarmandante != null ? '' : apm4=="v" ? <Icon2 name="circle" size={8} color="green" style={estilos.ultimas} /> : apm4=="d" ? <Icon2 name="circle" size={8} color="red" style={estilos.ultimas} /> : <Icon2 name="circle" size={8} color="gray" style={estilos.ultimas} /> }
-                                {placarmandante != null ? '' : apm5=="v" ? <Icon2 name="circle" size={8} color="green" style={estilos.ultimas} /> : apm5=="d" ? <Icon2 name="circle" size={8} color="red" style={estilos.ultimas} /> : <Icon2 name="circle" size={8} color="gray" style={estilos.ultimas} /> }
-                            </View>
-                            <Text style={estilos.placar}>{placarmandante === null ? '' : placarmandante}</Text>
-                        </View>
-                        {placarmandante === null ? <Text style={estilos.nomeclubemand2}>{nomeClube(mandante)}</Text> : <Text style={estilos.nomeclubemand}>{nomeClube(mandante)}</Text>}
-                    </View>
-                </View>
-                <View style={estilos.visitante}>
-                    <View style={estilos.coluna}>
-                        <View style={estilos.linha}>
-                            <View style={estilos.linhaultimas}>
-                                {placarvisitante != null ? '' : apv5=="v" ? <Icon2 name="circle" size={8} color="green" style={estilos.ultimas} /> : apv5=="d" ? <Icon2 name="circle" size={8} color="red" style={estilos.ultimas} /> : <Icon2 name="circle" size={8} color="gray" style={estilos.ultimas} /> }
-                                {placarvisitante != null ? '' : apv4=="v" ? <Icon2 name="circle" size={8} color="green" style={estilos.ultimas} /> : apv4=="d" ? <Icon2 name="circle" size={8} color="red" style={estilos.ultimas} /> : <Icon2 name="circle" size={8} color="gray" style={estilos.ultimas} /> }
-                                {placarvisitante != null ? '' : apv3=="v" ? <Icon2 name="circle" size={8} color="green" style={estilos.ultimas} /> : apv3=="d" ? <Icon2 name="circle" size={8} color="red" style={estilos.ultimas} /> : <Icon2 name="circle" size={8} color="gray" style={estilos.ultimas} /> }
-                                {placarvisitante != null ? '' : apv2=="v" ? <Icon2 name="circle" size={8} color="green" style={estilos.ultimas} /> : apv2=="d" ? <Icon2 name="circle" size={8} color="red" style={estilos.ultimas} /> : <Icon2 name="circle" size={8} color="gray" style={estilos.ultimas} /> }
-                                {placarvisitante != null ? '' : apv1=="v" ? <Icon2 name="circle" size={8} color="green" style={estilos.ultimas} /> : apv1=="d" ? <Icon2 name="circle" size={8} color="red" style={estilos.ultimas} /> : <Icon2 name="circle" size={8} color="gray" style={estilos.ultimas} /> }
-                            </View>
-                            <Text style={estilos.placar}>{placarvisitante === null ? '' : placarvisitante}</Text>
-                            <Image source={imagemClube(visitante)} style={estilos.clubefiltro}/>
-                        </View>
-                        {placarvisitante === null ? <Text style={estilos.nomeclubevisit2}>{nomeClube(visitante)}</Text> : <Text style={estilos.nomeclubevisit}>{nomeClube(visitante)}</Text>}
-                    </View>
-                    <Text style={estilos.posicao}>{visitantepos}º</Text>
-                </View>
-                
-            </View>
-            <View style={estilos.local}>
-                <Text>{local}</Text>
-            </View>
-        </View>
-    </View>
-  );
-
+import { useContext } from "react";
+import { GlobalContext } from "../../contexts/GlobalContext";
 
 
 export default function RodadaAtual(){
+
+  const { setDadosOriginal, setScouts } = useContext(GlobalContext)
+  const navigation = useNavigation();
+
+  const Item = ({ mandante, visitante, local, horario, placarmandante, placarvisitante, mandantepos, visitantepos, apm1, apm2, apm3, apm4, apm5, apv1, apv2, apv3, apv4, apv5, rodadaatual }) => (
+    
+      <TouchableOpacity style={estilos.cartao} onPress={() => rodadaatual === true ? navigation.navigate('Scouts', { mandante: mandante, visitante: visitante }) : ''}>
+          <View style={estilos.partida}>
+  
+              <View style={estilos.local}>
+                  <Text>{horario.substring(8,10)}/{horario.substring(5,7)}/{horario.substring(0,4)} {horario.substring(11,16)}</Text>
+              </View>
+              <View style={estilos.clubes}>
+                  <View style={estilos.mandante}>
+                      <Text style={estilos.posicao}>{mandantepos}º</Text>
+                      <View style={estilos.coluna}>
+                          <View style={estilos.linha}>
+                              <Image source={imagemClube(mandante)} style={estilos.clubefiltro}/>
+                              <View style={estilos.linhaultimas}>
+                                  {placarmandante != null ? '' : apm1=="v" ? <Icon2 name="circle" size={8} color="green" style={estilos.ultimas} /> : apm1=="d" ? <Icon2 name="circle" size={8} color="red" style={estilos.ultimas} /> : <Icon2 name="circle" size={8} color="gray" style={estilos.ultimas} /> }
+                                  {placarmandante != null ? '' : apm2=="v" ? <Icon2 name="circle" size={8} color="green" style={estilos.ultimas} /> : apm2=="d" ? <Icon2 name="circle" size={8} color="red" style={estilos.ultimas} /> : <Icon2 name="circle" size={8} color="gray" style={estilos.ultimas} /> }
+                                  {placarmandante != null ? '' : apm3=="v" ? <Icon2 name="circle" size={8} color="green" style={estilos.ultimas} /> : apm3=="d" ? <Icon2 name="circle" size={8} color="red" style={estilos.ultimas} /> : <Icon2 name="circle" size={8} color="gray" style={estilos.ultimas} /> }
+                                  {placarmandante != null ? '' : apm4=="v" ? <Icon2 name="circle" size={8} color="green" style={estilos.ultimas} /> : apm4=="d" ? <Icon2 name="circle" size={8} color="red" style={estilos.ultimas} /> : <Icon2 name="circle" size={8} color="gray" style={estilos.ultimas} /> }
+                                  {placarmandante != null ? '' : apm5=="v" ? <Icon2 name="circle" size={8} color="green" style={estilos.ultimas} /> : apm5=="d" ? <Icon2 name="circle" size={8} color="red" style={estilos.ultimas} /> : <Icon2 name="circle" size={8} color="gray" style={estilos.ultimas} /> }
+                              </View>
+                              <Text style={estilos.placar}>{placarmandante === null ? '' : placarmandante}</Text>
+                          </View>
+                          {placarmandante === null ? <Text style={estilos.nomeclubemand2}>{nomeClube(mandante)}</Text> : <Text style={estilos.nomeclubemand}>{nomeClube(mandante)}</Text>}
+                      </View>
+                  </View>
+                  <View style={estilos.visitante}>
+                      <View style={estilos.coluna}>
+                          <View style={estilos.linha}>
+                              <View style={estilos.linhaultimas}>
+                                  {placarvisitante != null ? '' : apv5=="v" ? <Icon2 name="circle" size={8} color="green" style={estilos.ultimas} /> : apv5=="d" ? <Icon2 name="circle" size={8} color="red" style={estilos.ultimas} /> : <Icon2 name="circle" size={8} color="gray" style={estilos.ultimas} /> }
+                                  {placarvisitante != null ? '' : apv4=="v" ? <Icon2 name="circle" size={8} color="green" style={estilos.ultimas} /> : apv4=="d" ? <Icon2 name="circle" size={8} color="red" style={estilos.ultimas} /> : <Icon2 name="circle" size={8} color="gray" style={estilos.ultimas} /> }
+                                  {placarvisitante != null ? '' : apv3=="v" ? <Icon2 name="circle" size={8} color="green" style={estilos.ultimas} /> : apv3=="d" ? <Icon2 name="circle" size={8} color="red" style={estilos.ultimas} /> : <Icon2 name="circle" size={8} color="gray" style={estilos.ultimas} /> }
+                                  {placarvisitante != null ? '' : apv2=="v" ? <Icon2 name="circle" size={8} color="green" style={estilos.ultimas} /> : apv2=="d" ? <Icon2 name="circle" size={8} color="red" style={estilos.ultimas} /> : <Icon2 name="circle" size={8} color="gray" style={estilos.ultimas} /> }
+                                  {placarvisitante != null ? '' : apv1=="v" ? <Icon2 name="circle" size={8} color="green" style={estilos.ultimas} /> : apv1=="d" ? <Icon2 name="circle" size={8} color="red" style={estilos.ultimas} /> : <Icon2 name="circle" size={8} color="gray" style={estilos.ultimas} /> }
+                              </View>
+                              <Text style={estilos.placar}>{placarvisitante === null ? '' : placarvisitante}</Text>
+                              <Image source={imagemClube(visitante)} style={estilos.clubefiltro}/>
+                          </View>
+                          {placarvisitante === null ? <Text style={estilos.nomeclubevisit2}>{nomeClube(visitante)}</Text> : <Text style={estilos.nomeclubevisit}>{nomeClube(visitante)}</Text>}
+                      </View>
+                      <Text style={estilos.posicao}>{visitantepos}º</Text>
+                  </View>
+                  
+              </View>
+              <View style={estilos.local}>
+                  <Text>{local}</Text>
+              </View>
+          </View>
+      </TouchableOpacity>
+    );
+
 
     const [partidas, setPartidas] = useState([]);
     const [numRodada,setNumRodada] = useState('');
@@ -88,11 +96,25 @@ export default function RodadaAtual(){
         
     }
 
+    async function CarregaDadosIniciais(){
+
+		  const teste = await apiMercado.get('')
+		
+      setDadosOriginal(teste.data);
+
+      const dadosScout = await apiScouts.get('')
+
+      setScouts(dadosScout.data.atletas)
+	  }
+	
+
+
     useEffect(() => {
 
+        CarregaDadosIniciais();
         CarregaRodada();
       
-      },);
+      },[]);
   
       
     useEffect(() => {
@@ -106,7 +128,10 @@ export default function RodadaAtual(){
 
     const renderItem = ({ item }) => (
 
-        <Item mandante={item.clube_casa_id} visitante={item.clube_visitante_id} local={item.local} horario={item.partida_data} placarmandante={item.placar_oficial_mandante} placarvisitante={item.placar_oficial_visitante} mandantepos={item.clube_casa_posicao} visitantepos={item.clube_visitante_posicao} apm1={item.aproveitamento_mandante[0]} apm2={item.aproveitamento_mandante[1]} apm3={item.aproveitamento_mandante[2]} apm4={item.aproveitamento_mandante[3]} apm5={item.aproveitamento_mandante[4]} apv1={item.aproveitamento_visitante[0]} apv2={item.aproveitamento_visitante[1]} apv3={item.aproveitamento_visitante[2]} apv4={item.aproveitamento_visitante[3]} apv5={item.aproveitamento_visitante[4]} />
+      numRodada==numRodadaAtual ?
+        <Item mandante={item.clube_casa_id} visitante={item.clube_visitante_id} local={item.local} horario={item.partida_data} placarmandante={item.placar_oficial_mandante} placarvisitante={item.placar_oficial_visitante} mandantepos={item.clube_casa_posicao} visitantepos={item.clube_visitante_posicao} apm1={item.aproveitamento_mandante[0]} apm2={item.aproveitamento_mandante[1]} apm3={item.aproveitamento_mandante[2]} apm4={item.aproveitamento_mandante[3]} apm5={item.aproveitamento_mandante[4]} apv1={item.aproveitamento_visitante[0]} apv2={item.aproveitamento_visitante[1]} apv3={item.aproveitamento_visitante[2]} apv4={item.aproveitamento_visitante[3]} apv5={item.aproveitamento_visitante[4]} rodadaatual={true} />
+        :
+        <Item mandante={item.clube_casa_id} visitante={item.clube_visitante_id} local={item.local} horario={item.partida_data} placarmandante={item.placar_oficial_mandante} placarvisitante={item.placar_oficial_visitante} mandantepos={item.clube_casa_posicao} visitantepos={item.clube_visitante_posicao} apm1={item.aproveitamento_mandante[0]} apm2={item.aproveitamento_mandante[1]} apm3={item.aproveitamento_mandante[2]} apm4={item.aproveitamento_mandante[3]} apm5={item.aproveitamento_mandante[4]} apv1={item.aproveitamento_visitante[0]} apv2={item.aproveitamento_visitante[1]} apv3={item.aproveitamento_visitante[2]} apv4={item.aproveitamento_visitante[3]} apv5={item.aproveitamento_visitante[4]} rodadaatual={false} />
         
     );
       
