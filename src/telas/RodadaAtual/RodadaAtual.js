@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Image, StyleSheet, View, FlatList, Text, TouchableOpacity  } from 'react-native';
+import { RefreshControl, Image, StyleSheet, View, FlatList, Text, TouchableOpacity  } from 'react-native';
 
 import apiRodada from '../../api/rodadaAtual';
 import apiStatus from '../../api/status';
@@ -17,6 +17,18 @@ import { GlobalContext } from "../../contexts/GlobalContext";
 
 
 export default function RodadaAtual(){
+
+  const wait = (timeout) => {
+    return new Promise(resolve => setTimeout(resolve, timeout));
+  }
+
+  const [refreshing, setRefreshing] = React.useState(false);
+
+  const onRefresh = React.useCallback(() => {
+      setRefreshing(true);
+      wait(2000).then(() => setRefreshing(false));
+  }, []);
+
 
   const { setDadosOriginal, setScouts } = useContext(GlobalContext)
   const navigation = useNavigation();
@@ -183,6 +195,12 @@ export default function RodadaAtual(){
             data={partidas.partidas}
             renderItem={renderItem}
             keyExtractor={item => item.partida_id}
+            refreshControl={
+              <RefreshControl
+                refreshing={refreshing}
+                onRefresh={onRefresh}
+              />
+            }
         /> 
         
     </>

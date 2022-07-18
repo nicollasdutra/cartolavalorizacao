@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, SafeAreaView, Text, View,FlatList, Image, TouchableOpacity, ScrollView, Modal  } from 'react-native';
+import { RefreshControl,StyleSheet, SafeAreaView, Text, View,FlatList, Image, TouchableOpacity, ScrollView, Modal  } from 'react-native';
 
 import apiMercado from '../../../src/api/mercadoApi';
 
@@ -91,6 +91,18 @@ function posicao(posicao){
 
 export default function MaiorMedia()
 {
+
+  const wait = (timeout) => {
+    return new Promise(resolve => setTimeout(resolve, timeout));
+  }
+
+  const [refreshing, setRefreshing] = React.useState(false);
+
+  const onRefresh = React.useCallback(() => {
+      setRefreshing(true);
+      wait(2000).then(() => setRefreshing(false));
+  }, []);
+
   const { dadosOriginal } = useContext(GlobalContext)
 
   const [estatisticas,setEstatisticas] = useState({nome: 'teste', J: 10, G: 3, A: 2, DS: 5, FC: 12, FD: 10, FF: 10, FS: 15, FT: 4, I: 2, PI: 30, PP: 0, DE: 2, GS: 2, SG: 5, CA:2, CV:3, POS:4  })
@@ -283,6 +295,12 @@ const renderItem = ({ item }) => (
             data={dados?.sort((a,b) => b.media_num-a.media_num)}
             renderItem={renderItem}
             keyExtractor={item => item.atleta_id}
+            refreshControl={
+              <RefreshControl
+                refreshing={refreshing}
+                onRefresh={onRefresh}
+              />
+            }
           /> 
 
 

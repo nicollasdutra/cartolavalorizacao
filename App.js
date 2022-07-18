@@ -9,22 +9,26 @@ import Icon from 'react-native-vector-icons/Feather';
 import LinearGradient from 'react-native-linear-gradient';
 
 import CartolaRotas from './src/rotas/CartolaRotas';
-import RodadaAtual from './src/telas/RodadaAtual/RodadaAtual';
+//import RodadaAtual from './src/telas/RodadaAtual/RodadaAtual';
 import Valorizar from './src/telas/Valorizar/Valorizar';
 import MaisEscalados from './src/telas/MaisEscalados/MaisEscalados';
 import MaiorMedia from './src/telas/MaiorMedia/MaiorMedia';
 import Estatisticas from './src/telas/EstatisticasClubes/Estatisticas';
+//import MeuTime from './src/telas/Times/MeuTime';
 
 import { InfoProvider } from './src/contexts/GlobalContext';
 
 const Tab = createBottomTabNavigator();
 
+
 function App(){
 
+  
   return <>
   		  <View style={estilos.linha}><Image source={logo} style={estilos.logo} /><Text style={estilos.textologo}>Nikao do cartola</Text></View>
           
           <SafeAreaView style={estilos.tela}>
+
 		  <InfoProvider>
 		  <NavigationContainer>
 			<Tab.Navigator
@@ -40,6 +44,9 @@ function App(){
 								iconName = 'dollar-sign';
 								break;
               				case 'Mais Escalados':
+								iconName = 'chevrons-up';
+								break;
+							case 'Meu Time':
 								iconName = 'chevrons-up';
 								break;
               				case 'Maiores Medias':
@@ -87,7 +94,8 @@ function App(){
 			</Tab.Navigator>
 		</NavigationContainer>
 		</InfoProvider>
-          </SafeAreaView>
+		
+        </SafeAreaView>
         </>
 }
 

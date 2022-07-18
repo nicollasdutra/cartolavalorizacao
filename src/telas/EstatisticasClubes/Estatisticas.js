@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Text, View, FlatList, StyleSheet } from 'react-native';
+import { RefreshControl, Text, View, FlatList, StyleSheet } from 'react-native';
 
 import EstatisticasClubes from '../../components/clubes/EstatisticasClubes';
 
@@ -18,6 +18,17 @@ const Item = ({ mandante, visitante}) => (
   );
 
 export default function Estatisticas(){
+
+    const wait = (timeout) => {
+        return new Promise(resolve => setTimeout(resolve, timeout));
+      }
+    
+      const [refreshing, setRefreshing] = React.useState(false);
+    
+      const onRefresh = React.useCallback(() => {
+          setRefreshing(true);
+          wait(2000).then(() => setRefreshing(false));
+      }, []);
 
     const [partidas, setPartidas] = useState([]);
     
@@ -44,6 +55,12 @@ export default function Estatisticas(){
             data={partidas.partidas}
             renderItem={renderItem}
             keyExtractor={item => item.partida_id}
+            refreshControl={
+                <RefreshControl
+                  refreshing={refreshing}
+                  onRefresh={onRefresh}
+                />
+              }
         /> 
     
     </>
