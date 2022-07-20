@@ -30,7 +30,7 @@ export default function RodadaAtual(){
   }, []);
 
 
-  const { setDadosOriginal, setScouts } = useContext(GlobalContext)
+  const { setDadosOriginal, setScouts, setStatusMercado } = useContext(GlobalContext)
   const navigation = useNavigation();
 
   const Item = ({ mandante, visitante, local, horario, placarmandante, placarvisitante, mandantepos, visitantepos, apm1, apm2, apm3, apm4, apm5, apv1, apv2, apv3, apv4, apv5, rodadaatual }) => (
@@ -93,8 +93,9 @@ export default function RodadaAtual(){
 
     async function CarregaRodada(){
 
-        
         const dadosStatus = await apiStatus.get()
+        setStatusMercado(dadosStatus.data.status_mercado)
+
         
         setNumRodadaAtual(dadosStatus.data.rodada_atual);
         numeroRodada = dadosStatus.data.rodada_atual
@@ -150,7 +151,7 @@ export default function RodadaAtual(){
     const renderItem = ({ item }) => (
 
       numRodada==numRodadaAtual ?
-        <Item mandante={item.clube_casa_id} visitante={item.clube_visitante_id} local={item.local} horario={item.partida_data} placarmandante={item.placar_oficial_mandante} placarvisitante={item.placar_oficial_visitante} mandantepos={item.clube_casa_posicao} visitantepos={item.clube_visitante_posicao} apm1={item.aproveitamento_mandante[0]} apm2={item.aproveitamento_mandante[1]} apm3={item.aproveitamento_mandante[2]} apm4={item.aproveitamento_mandante[3]} apm5={item.aproveitamento_mandante[4]} apv1={item.aproveitamento_visitante[0]} apv2={item.aproveitamento_visitante[1]} apv3={item.aproveitamento_visitante[2]} apv4={item.aproveitamento_visitante[3]} apv5={item.aproveitamento_visitante[4]} rodadaatual={true} />
+        <Item mandante={item.clube_casa_id} visitante={item.clube_visitante_id} local={item.local} horario={item.partida_data} placarmandante={item.placar_oficial_mandante} placarvisitante={item.placar_oficial_visitante} mandantepos={item.clube_casa_posicao} visitantepos={item.clube_visitante_posicao} apm1={item.aproveitamento_mandante[0]} apm2={item.aproveitamento_mandante[1]} apm3={item.aproveitamento_mandante[2]} apm4={item.aproveitamento_mandante[3]} apm5={item.aproveitamento_mandante[4]} apv1={item.aproveitamento_visitante[0]} apv2={item.aproveitamento_visitante[1]} apv3={item.aproveitamento_visitante[2]} apv4={item.aproveitamento_visitante[3]} apv5={item.aproveitamento_visitante[4]} rodadaatual={true}/>
         :
         <Item mandante={item.clube_casa_id} visitante={item.clube_visitante_id} local={item.local} horario={item.partida_data} placarmandante={item.placar_oficial_mandante} placarvisitante={item.placar_oficial_visitante} mandantepos={item.clube_casa_posicao} visitantepos={item.clube_visitante_posicao} apm1={item.aproveitamento_mandante[0]} apm2={item.aproveitamento_mandante[1]} apm3={item.aproveitamento_mandante[2]} apm4={item.aproveitamento_mandante[3]} apm5={item.aproveitamento_mandante[4]} apv1={item.aproveitamento_visitante[0]} apv2={item.aproveitamento_visitante[1]} apv3={item.aproveitamento_visitante[2]} apv4={item.aproveitamento_visitante[3]} apv5={item.aproveitamento_visitante[4]} rodadaatual={false} />
         

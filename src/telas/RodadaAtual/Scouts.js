@@ -11,7 +11,7 @@ import { nomeClube, imagemClube } from '../../components/clubes/clubes';
 export default function Scouts()
 {
     
-    const { dadosOriginal, scouts } = useContext(GlobalContext)
+    const { dadosOriginal, scouts, statusMercado } = useContext(GlobalContext)
 
 
     const navigation = useNavigation();
@@ -110,12 +110,15 @@ export default function Scouts()
         
     );
 
+    function RenderizaBotao(){
 
+      return <> <TouchableOpacity onPress={() => navigation.goBack()}><Text style={estilos.voltar}>Voltar</Text></TouchableOpacity></>
+    }
+    function RenderizaTela(){
 
+      return <>
+        {RenderizaBotao()}
 
-    return <>
-        <TouchableOpacity onPress={() => navigation.goBack()}><Text style={estilos.voltar}>Voltar</Text></TouchableOpacity>
-        
         <View style={estilos.linhaespacada}>
         <View style={estilos.linha}>
             <Image source={imagemClube(mandante)} style={estilos.clubefiltro}/>
@@ -142,9 +145,16 @@ export default function Scouts()
             renderItem={renderItem}
             keyExtractor={item => item.atleta_id}
         /> 
-
+    
 
     </>
+
+    }
+
+    {statusMercado === 1 ? RenderizaBotao() : RenderizaTela() }
+
+
+    
 
 }
 

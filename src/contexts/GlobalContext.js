@@ -9,9 +9,11 @@ export function InfoProvider( {children} ){
 
     const [scouts, setScouts] = useState([]);
 
+    const [statusMercado, setStatusMercado] = useState(0);
+
     return (
         
-        <GlobalContext.Provider value={{dadosOriginal, setDadosOriginal, scouts, setScouts}}>
+        <GlobalContext.Provider value={{dadosOriginal, setDadosOriginal, scouts, setScouts, statusMercado, setStatusMercado}}>
             {children}
         </GlobalContext.Provider>
     )
