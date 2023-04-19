@@ -18,6 +18,10 @@ import ceara from '../../assets/354.png';
 import fortaleza from '../../assets/356.png';
 import atleticogo from '../../assets/373.png';
 import cuiaba from '../../assets/1371.png';
+import bahia from '../../assets/265.png';
+import gremio from '../../assets/284.png';
+import cruzeiro from '../../assets/283.png';
+import vasco from '../../assets/267.png';
 
 
 export function nomeClube(clube){
@@ -63,7 +67,14 @@ export function nomeClube(clube){
         return 'Atletico GO'
       case 1371:
         return 'Cuiabá'
-                                                                                                                                        
+      case 265:
+        return 'Bahia'
+      case 284:
+        return 'Gremio'
+      case 283:
+        return 'Cruzeiro'
+      case 267:
+        return 'Vasco'                                                                                                                                  
     }
   
   }
@@ -111,7 +122,14 @@ export function nomeClube(clube){
         return atleticogo
       case 1371:
         return cuiaba
-                                                                                                                                        
+      case 265:
+        return bahia
+      case 284:
+          return gremio
+      case 283:
+        return cruzeiro
+      case 267:
+        return vasco                                                                                                                                     
     }
   
   }

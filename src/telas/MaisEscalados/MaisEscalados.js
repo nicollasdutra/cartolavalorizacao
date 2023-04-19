@@ -10,7 +10,7 @@ const Item = ({ apelido, clube, escalacoes, foto, posicao }) => (
     <View style={estilos.cartao}>
         <View style={estilos.linha}>
             <View style={estilos.imagem}>
-                <Image source={{uri:foto.replace("FORMATO","140x140")}} style={estilos.fotopeq} />
+                <Image source={{uri:foto.replace("FORMATO","220x220")}} style={estilos.fotopeq} />
             </View>
             <View style={estilos.cartaoDestaque}>
                 <Text style={estilos.apelido}>{apelido}</Text>

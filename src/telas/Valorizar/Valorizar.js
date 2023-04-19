@@ -25,6 +25,10 @@ import ceara from '../../../src/assets/354.png';
 import fortaleza from '../../../src/assets/356.png';
 import atleticogo from '../../../src/assets/373.png';
 import cuiaba from '../../../src/assets/1371.png';
+import bahia from '../../../src/assets/265.png';
+import gremio from '../../../src/assets/284.png';
+import cruzeiro from '../../../src/assets/283.png';
+import vasco from '../../../src/assets/267.png';
 
 
 import checkok from '../../../src/assets/check.png';
@@ -36,7 +40,7 @@ const Item = ({ foto, clube, provavel, posicao, nome, minValorizar, media, jogos
   
   <View style={estilos.cartao}>
       <View style={estilos.imagem}>
-        <Image source={{uri:foto.replace("FORMATO","140x140")}} style={estilos.fotopeq} />
+        <Image source={{uri:foto.replace("FORMATO","220x220")}} style={estilos.fotopeq} />
       </View>
       <View style={estilos.informacoes}>
         <View>
@@ -241,30 +245,30 @@ const renderItem = ({ item }) => (
             <View style={estilos.filtro}>
             <TouchableOpacity style={estilos.botaofiltro} onPress={() => setTimeEscolhido(327)}><Image source={americamg} style={estilos.clubefiltro} /></TouchableOpacity>
             <TouchableOpacity style={estilos.botaofiltro} onPress={() => setTimeEscolhido(293)}><Image source={atleticopr} style={estilos.clubefiltro} /></TouchableOpacity>
-            <TouchableOpacity style={estilos.botaofiltro} onPress={() => setTimeEscolhido(373)}><Image source={atleticogo} style={estilos.clubefiltro}/></TouchableOpacity>
             <TouchableOpacity style={estilos.botaofiltro} onPress={() => setTimeEscolhido(282)}><Image source={atleticomg} style={estilos.clubefiltro}/></TouchableOpacity>
-            <TouchableOpacity style={estilos.botaofiltro} onPress={() => setTimeEscolhido(314)}><Image source={avai} style={estilos.clubefiltro}/></TouchableOpacity>
+            <TouchableOpacity style={estilos.botaofiltro} onPress={() => setTimeEscolhido(265)}><Image source={bahia} style={estilos.clubefiltro}/></TouchableOpacity>
+            <TouchableOpacity style={estilos.botaofiltro} onPress={() => setTimeEscolhido(263)}><Image source={botafogo} style={estilos.clubefiltro}/></TouchableOpacity>
             </View>
             <View style={estilos.filtro}>
-            <TouchableOpacity style={estilos.botaofiltro} onPress={() => setTimeEscolhido(263)}><Image source={botafogo} style={estilos.clubefiltro}/></TouchableOpacity>
             <TouchableOpacity style={estilos.botaofiltro} onPress={() => setTimeEscolhido(280)}><Image source={bragantino} style={estilos.clubefiltro}/></TouchableOpacity>
-            <TouchableOpacity style={estilos.botaofiltro} onPress={() => setTimeEscolhido(354)}><Image source={ceara} style={estilos.clubefiltro}/></TouchableOpacity>
             <TouchableOpacity style={estilos.botaofiltro} onPress={() => setTimeEscolhido(264)}><Image source={corinthians} style={estilos.clubefiltro}/></TouchableOpacity>
             <TouchableOpacity style={estilos.botaofiltro} onPress={() => setTimeEscolhido(294)}><Image source={coritiba} style={estilos.clubefiltro}/></TouchableOpacity>
+            <TouchableOpacity style={estilos.botaofiltro} onPress={() => setTimeEscolhido(283)}><Image source={cruzeiro} style={estilos.clubefiltro}/></TouchableOpacity>
+            <TouchableOpacity style={estilos.botaofiltro} onPress={() => setTimeEscolhido(1371)}><Image source={cuiaba} style={estilos.clubefiltro}/></TouchableOpacity>
             </View>
             <View style={estilos.filtro}>
-            <TouchableOpacity style={estilos.botaofiltro} onPress={() => setTimeEscolhido(1371)}><Image source={cuiaba} style={estilos.clubefiltro}/></TouchableOpacity>
             <TouchableOpacity style={estilos.botaofiltro} onPress={() => setTimeEscolhido(262)}><Image source={flamengo} style={estilos.clubefiltro}/></TouchableOpacity>
             <TouchableOpacity style={estilos.botaofiltro} onPress={() => setTimeEscolhido(266)}><Image source={fluminense} style={estilos.clubefiltro}/></TouchableOpacity>
             <TouchableOpacity style={estilos.botaofiltro} onPress={() => setTimeEscolhido(356)}><Image source={fortaleza} style={estilos.clubefiltro}/></TouchableOpacity>
             <TouchableOpacity style={estilos.botaofiltro} onPress={() => setTimeEscolhido(290)}><Image source={goias} style={estilos.clubefiltro}/></TouchableOpacity>
+            <TouchableOpacity style={estilos.botaofiltro} onPress={() => setTimeEscolhido(284)}><Image source={gremio} style={estilos.clubefiltro}/></TouchableOpacity>
             </View>
             <View style={estilos.filtro}>
             <TouchableOpacity style={estilos.botaofiltro} onPress={() => setTimeEscolhido(285)}><Image source={internacional} style={estilos.clubefiltro}/></TouchableOpacity>
-            <TouchableOpacity style={estilos.botaofiltro} onPress={() => setTimeEscolhido(286)}><Image source={juventude} style={estilos.clubefiltro}/></TouchableOpacity>
             <TouchableOpacity style={estilos.botaofiltro} onPress={() => setTimeEscolhido(275)}><Image source={palmeiras} style={estilos.clubefiltro}/></TouchableOpacity>
             <TouchableOpacity style={estilos.botaofiltro} onPress={() => setTimeEscolhido(277)}><Image source={santos} style={estilos.clubefiltro}/></TouchableOpacity>
             <TouchableOpacity style={estilos.botaofiltro} onPress={() => setTimeEscolhido(276)}><Image source={saopaulo} style={estilos.clubefiltro}/></TouchableOpacity>
+            <TouchableOpacity style={estilos.botaofiltro} onPress={() => setTimeEscolhido(267)}><Image source={vasco} style={estilos.clubefiltro}/></TouchableOpacity>
             </View>
           </View>
           </View>
